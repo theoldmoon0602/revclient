@@ -1,0 +1,14 @@
+.dub
+docs.json
+__dummy.html
+docs/
+revclient.so
+revclient.dylib
+revclient.dll
+revclient.a
+revclient.lib
+revclient-test-*
+*.exe
+*.o
+*.obj
+*.lst
