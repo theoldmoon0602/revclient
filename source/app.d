@@ -36,7 +36,7 @@ void main(string[] args)
 
 	// これはローカルホストのサーバと通信する例
 	auto socket = new TcpSocket();
-	socket.connect(new InternetAddress("theoldmoon0602.tk", 8888));
+	socket.connect(new InternetAddress(8888));
 
 	root: while (true) {
 		// receive して JSON としてパースする
@@ -72,19 +72,17 @@ void main(string[] args)
 				status = SEARCH; /// ログインしたら対戦相手を探しに行く
 				break;
 			case SEARCH:
-				// 相手が一人もいなかったらWAITになる
 				if (data["users"].array().length == 0) {
 					JSONValue json;
 					json["action"] = "wait";
 					socket.emitln(json);
 					status = WAIT;
 				}
-				// 誰か対戦待ちなら、ランダムに選んで戦う
 				else {
 					writeln(data["users"]);
 					JSONValue json;
 					json["action"] = "battle";
-					json["user"] = data["users"].array().choice()["name"].str();
+					json["user"] = readln().strip();
 					socket.emitln(json);
 					status = WAIT;
 				}
